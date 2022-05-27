@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 container: {
-        marginVertical: 20,
         flex: 1,
         width: '100%',
         backgroundColor: '#00000035',
@@ -23,14 +22,12 @@ container: {
         fontWeight: '600',
         marginVertical: 15,
       },
-
       cuisine: {
         marginHorizontal: 12,
         fontSize: 16,
         fontWeight: '100',
         color: '#ff3333',
       },
-
       address: {
         marginHorizontal: 12,
         fontSize: 14,
@@ -38,5 +35,4 @@ container: {
         color: '#303030',
         marginBottom: 8,
       },
-
 });

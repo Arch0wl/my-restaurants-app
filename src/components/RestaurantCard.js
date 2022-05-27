@@ -1,10 +1,10 @@
-import { View, Text, Image } from "react-native";
-import styles from "../styles";
+import { View, Text, Image } from 'react-native';
+import styles from '../styles';
 
 // name, cuisine, address, rating
 
 export default function RestaurantCard({ singleRest }) {
-return (
+  return (
     <View style={styles.restaurantCard}>
       <Text style={styles.restaurantsName}>
         {singleRest.name}

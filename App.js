@@ -1,45 +1,29 @@
-import { useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, View, ActivityIndicator, ImageBackground, ScrollView } from 'react-native';
-import RestaurantCard from './src/components/RestaurantCard';
-import styles from './src/styles';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './src/scenes/Home';
+import Details from './src/scenes/Details';
 
-const bgImage = {uri: 'https://png.pngtree.com/background/20210709/original/pngtree-food-western-food-steak-tomato-picture-image_941801.jpg'}
+const Stack = createNativeStackNavigator()
+
+export const SingleRestContext = createContext(null);
 
 export default function App() {
-  const [allRestaurants, setAllRestaurants] = useState()
-
-  useEffect( async () => {
-    const getData = async () => {
-      try {
-        const response = await fetch('https://my-first-firestore-hs.web.app/restaurants')
-        const data = await response.json()
-        setAllRestaurants(data)
-      } catch(err) {
-        console.error(err)
-      }
-    };
-    
-    getData()
-   }, []) 
-
+  const [currentRest, setCurrentRest] = useState();
   return (
-    <View style={styles.container}>
-    <ImageBackground resizeMode='cover' source={bgImage} style={styles.container}>
-      <SafeAreaView style={styles.container}>
-        <ScrollView>
-          {!allRestaurants
-            ? <ActivityIndicator size='large' color='orange' />
-            :
-            allRestaurants.map(singleRest => (
-              <RestaurantCard key={singleRest.id} singleRest={singleRest} />
-            ))
-          }
-        </ScrollView>
-      </SafeAreaView>
-      <StatusBar style="auto" />
-    </ImageBackground>
-  </View>
-);
+    <SingleRestContext.Provider value={ {currentRest, setCurrentRest }}>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Screen name="Home" component={Home} options={{ title: 'Local Restaurants' }} />
+          <Stack.Screen name="Details" component={Details} />
+        </Stack.Navigator>
+        <StatusBar style="auto" />
+      </NavigationContainer>
+    </SingleRestContext.Provider>
+  );
 }
+
+
+
     
